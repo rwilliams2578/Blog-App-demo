@@ -1,12 +1,19 @@
 {% extends "base.html" %}
-
-{% block title %}Detail{% endblock title %}
-
 {% block content %}
-  <div class="post_entry">
-    <h2>{{ post.title}}<h2>
-    <p>Written by: {{ post.author }}</p>
-    <p>{{ post.body}}<p>
-    <p>Created at: {{ post.created }}</p>
+  <div class="post-entry">
+    <h2>{{ post.title }}</h2>
+    <h3>{{ post.author.username }}</h3>
+    <p>{{ post.body }}</p>
   </div>
+
+  <p><a href="{% url 'post_edit' post.pk %}">+ Edit Blog Post</a></p>
+  <p><a href="{% url 'post_delete' post.pk %}">+ Delete Blog Post</a></p>
+
+  {% comment %} <h2>Posts by same author</h2>
+  {% for apost in post.author.posts.all %}
+   <div class="post-entry">
+      <h2><a href="{% url 'post_detail' apost.pk %}">{{ apost.title }}</a></h2>
+      <p>{{ apost.body }}</p>
+    </div>
+  {% endfor %} {% endcomment %}
 {% endblock content %}
