@@ -69,13 +69,13 @@ class BlogTests(TestCase):
         )
 
         self.assertEqual(response.status_code, 302)
-        self.assertEqual(Post.objects.last(), title, "New title")
+        self.assertEqual(Post.objects.last().title, "New title")
         self.assertEqual(Post.objects.last().body, "New text")
 
     def test_post_updateview(self):
         """Test post update view"""
         response = self.client.post(
-            reverse("post_edit", args="1")
+            reverse("post_edit", args="1"),
             {
                 "title": "Updated title",
                 "body": "Updated text",
